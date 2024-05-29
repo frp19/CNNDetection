@@ -2,7 +2,14 @@
 DOCUMENT_ID="1FU7xF8Wl_F8b0tgL0529qg2nZ_RpdVNL"
 FINAL_DOWNLOADED_FILENAME="valset.zip"
 
-curl -c /tmp/cookies "https://drive.google.com/uc?export=download&id=$DOCUMENT_ID" > /tmp/intermezzo.html
-curl -L -b /tmp/cookies "https://drive.google.com$(cat /tmp/intermezzo.html | grep -Po 'uc-download-link" [^>]* href="\K[^"]*' | sed 's/\&amp;/\&/g')" > $FINAL_DOWNLOADED_FILENAME
-unzip valset.zip
-rm valset.zip
+# Install gdown if not already installed
+pip install gdown
+
+# Download the file using gdown
+gdown --id $DOCUMENT_ID -O $FINAL_DOWNLOADED_FILENAME
+
+# Unzip the downloaded file
+unzip $FINAL_DOWNLOADED_FILENAME
+
+# Clean up
+rm $FINAL_DOWNLOADED_FILENAME
